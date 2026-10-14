@@ -1,0 +1,140 @@
+-- ================================================
+-- SALES MEASURES
+-- Project: AdventureWorksDW2019
+-- Table: fact_internet_sales, fact_reseller_sales
+    fact_sales_quota
+-- ================================================
+
+-- Category: Facts Internet Sales
+
+-- 1. SALES PERFORMANCE
+
+Total Internet Sales = 
+    SUM(fact_internet_sales[sales_amount])
+
+Total Internet Orders = 
+    DISTINCTCOUNT(fact_internet_sales[sales_order_number])
+
+Total Internet Order Line Number = 
+    COUNTROWS(fact_internet_sales)
+
+Total Internet Units = 
+    SUM(fact_internet_sales[order_quantity])
+
+-- 2. COST AND PROFITABILITY
+
+Total Internet Product Cost = 
+    SUM(fact_internet_sales[total_product_cost])
+
+Total Internet Profit = 
+    [Total Internet Sales] 
+        - [Total Internet Product Cost]
+
+Internet Profit Margin = 
+    DIVIDE(
+        [Total Internet Profit], 
+        [Total Internet Sales]
+    )
+
+-- 3. SALES EFFICIENCY
+
+Internet Average Order Value = 
+    DIVIDE(
+        [Total Internet Sales], 
+        [Total Internet Orders]
+    )
+
+Internet Average Selling Price = 
+    DIVIDE(
+        [Total Internet Sales], 
+        [Total Internet Units]
+    )
+
+-- 4. ADDITIONAL SALES METRICS
+
+Total Internet Tax = 
+    SUM(fact_internet_sales[tax_amount])
+
+Total Internet Freight = 
+    SUM(fact_internet_sales[freight])
+
+-- ================================================
+
+-- Category: Facts Reseller Sales
+
+-- 1. SALES PERFORMANCE
+
+Total Reseller Sales = 
+    SUM(fact_reseller_sales[sales_amount])
+
+Total Reseller Orders = 
+    DISTINCTCOUNT(fact_reseller_sales[sales_order_number])
+
+Total Reseller Order Line = 
+    COUNTROWS(fact_reseller_sales)
+
+Total Reseller Units = 
+    SUM(fact_reseller_sales[order_quantity])
+
+-- 2. COST AND PROFITABILITY
+
+Total Reseller Product Cost = 
+    SUM(fact_reseller_sales[total_product_cost])
+
+Total Reseller Profit = 
+    [Total Reseller Sales] 
+        - [Total Reseller Product Cost]
+
+Reseller Profit Margin = 
+    DIVIDE(
+        [Total Reseller Profit], 
+        [Total Reseller Sales]
+    )
+
+-- 3. SALES EFFICIENCY
+
+Reseller Average Order Value = 
+    DIVIDE(
+        [Total Reseller Sales], 
+        [Total Reseller Orders]
+    )
+
+Reseller Average Selling Price = 
+    DIVIDE(
+        [Total Reseller Sales], 
+        [Total Reseller Units]
+    )
+
+-- 4. ADDITIONAL SALES METRICS
+
+Total Reseller Discount = 
+    SUM(fact_reseller_sales[discount_amount])
+
+Total Reseller Tax = 
+    SUM(fact_reseller_sales[tax_amount])
+
+Total Reseller Freight = 
+    SUM(fact_reseller_sales[freight])
+
+-- ================================================
+
+-- Category: Facts Sales Quota
+
+Total Sales Quota = 
+    SUM(fact_sales_quota[sales_amount_quota])
+
+-- ================================================
+
+-- Combined sales measures
+
+Total Orders = 
+    [Total Internet Orders] 
+        + [Total Reseller Orders]
+
+Total Sales = 
+    [Total Internet Sales] 
+        + [Total Reseller Sales]
+
+Total Units Sold = 
+    [Total Internet Units] 
+        + [Total Reseller Units]
