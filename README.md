@@ -52,12 +52,6 @@ Key modeling considerations include:
 
 The model's overall structure also accommodates multiple fact tables that support different business processes.
 
-### Data Model
-
-![Power BI Data Model](screenshots/model_view.png)
-
-*The model view illustrates the relationships between the imported fact and dimension tables.*
-
 ## SQL Analysis & Validation
 
 SQL Server was used to investigate the warehouse structure and validate important modeling assumptions.
